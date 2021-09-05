@@ -29,17 +29,14 @@
           </div>
           <div class="product-text">
             <div class="row no-gutters">
-              <div class="col-6">
+              <div *ngIf="product.discount" class="col-6">
                 <h6>Price now:</h6>
-                <label
-                  *ngIf="product.discount"
-                  class="product-price font-weight-bold"
-                >
+                <label class="product-price font-weight-bold">
                   {{ product.price - product.discount | currency }}
                 </label>
               </div>
-              <div class="col-6 text-right">
-                <h6>Was:</h6>
+              <div class="col-6 text-right ml-auto">
+                <h6>{{ product.discount ? 'Was:' : 'Price:' }}</h6>
                 <label
                   [ngClass]="{ 'product-price--discounted': product.discount }"
                 >
