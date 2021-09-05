@@ -16,7 +16,7 @@ export class ShopApiService {
     private productService: ProductService
   ) {}
 
-  getProducts(): Observable<ProductModel[]> {
+  getRecommendedProducts(): Observable<ProductModel[]> {
     const url = `${this.mainUrl}/recommendeds`;
     return this.http.get<ProductModel[]>(url).pipe(
       catchError(error => {

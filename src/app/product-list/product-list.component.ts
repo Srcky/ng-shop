@@ -22,9 +22,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   searchInProgress$ = this.productService.searchProgress$;
 
   ngOnInit(): void {
+    this.loadRecommended();
+  }
+
+  loadRecommended(): void {
     this.subscription.add(
       this.shopApiService
-        .getProducts()
+        .getRecommendedProducts()
         .subscribe(products => this.productService.loadProducts(products))
     );
   }
