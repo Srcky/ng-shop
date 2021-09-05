@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ProductModel } from '../models/product.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ShopApiService } from '../services/shop-api.service';
 
 @Component({
@@ -9,18 +9,33 @@ import { ShopApiService } from '../services/shop-api.service';
   styleUrls: ['./product-list.component.scss'],
   templateUrl: 'product-list.component.html',
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private shopApiService: ShopApiService
   ) {}
 
-  products$: Observable<ProductModel[]> = this.shopApiService.getProducts();
-  loading$ = this.productService.loading;
+  private subscription = new Subscription();
 
-  ngOnInit(): void {}
+  products$: Observable<ProductModel[]> = this.productService.getProducts$;
+  loading$ = this.productService.loading$;
+  searchInProgress$ = this.productService.searchProgress$;
+
+  ngOnInit(): void {
+    this.subscription.add(
+      this.shopApiService
+        .getProducts()
+        .subscribe(products => this.productService.loadProducts(products))
+    );
+  }
 
   addToCart(product: ProductModel): void {
     this.productService.onAddToCart(product);
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

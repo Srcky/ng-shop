@@ -28,10 +28,10 @@ export class ShopApiService {
     );
   }
 
-  searchProducts(keyword: string): Observable<ProductModel[]> {
+  searchProducts(keyword: { searchQuery: string }): Observable<ProductModel[]> {
     const url = `${this.mainUrl}/products`;
     return this.http.get<ProductModel[]>(url, {
-      params: new HttpParams().set('q', keyword),
+      params: new HttpParams().set('q', keyword.searchQuery),
     });
   }
 }

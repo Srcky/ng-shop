@@ -7,14 +7,10 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BannerComponent } from './banner/banner.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CartComponent,
-    ProductListComponent,
-    BannerComponent,
-  ],
+  declarations: [AppComponent, CartComponent, ProductListComponent, BannerComponent, SearchComponent],
   imports: [BrowserModule, ReactiveFormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

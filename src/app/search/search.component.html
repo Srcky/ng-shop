@@ -1,0 +1,14 @@
+<form class="form" [formGroup]="searchForm" novalidate>
+  <div class="form-group">
+    <label>Search products</label>
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Product name"
+      formControlName="searchQuery"
+    />
+    <small class="form-text text-muted"
+      >You must enter at least 4 characters</small
+    >
+  </div>
+</form>

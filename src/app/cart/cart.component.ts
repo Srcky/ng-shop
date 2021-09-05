@@ -9,12 +9,12 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnDestroy {
+  constructor(private productService: ProductService) {}
+
   private subscription: Subscription = new Subscription();
-  productsInCart$: Observable<ProductModel> = this.productService.addToCart;
+  productsInCart$: Observable<ProductModel> = this.productService.addToCart$;
   productsInCart: InCartProductModel[] = [];
   cartTotal = 0;
-
-  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.checkProductAdd();

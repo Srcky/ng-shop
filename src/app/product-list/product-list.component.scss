@@ -11,14 +11,14 @@
     padding: 10px 15px;
     background: #fff;
     font-size: 14px;
-    color: #636262;
+    color: var(--gray-dark);
   }
 
   &-price {
     color: #000;
     &--discounted {
       text-decoration: line-through;
-      color: #dd5600;
+      color: var(--orange);
     }
   }
 
@@ -26,8 +26,8 @@
     @include mixins.highlighter(0, 0, 8px, 8px);
     &:hover {
       text-decoration: none;
-      background-color: #1d3461;
-      color: #fff;
+      background-color: var(--primary);
+      color: var(--white);
     }
   }
 }
