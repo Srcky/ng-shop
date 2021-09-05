@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Your Angular development environment should include the following:
 
-Angular CLI: 10.1.4 or later
+Angular CLI: 10.1.4 or later\
 node.js: 14.17.6 or later
 
 ## Starting the application
