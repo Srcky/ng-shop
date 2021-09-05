@@ -1,0 +1,9 @@
+@mixin highlighter($x, $y, $a, $b) {
+  padding: 10px 0;
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: $x $y $a $b;
+  outline: 0;
+  border: 0;
+}

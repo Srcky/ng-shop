@@ -1,0 +1,20 @@
+@use '../../mixins.scss' as mixins;
+
+.cart {
+  &-price {
+    z-index: 2;
+  }
+  &-remove-item {
+    cursor: pointer;
+  }
+}
+
+.ribbon {
+  @include mixins.highlighter(8px, 8px, 0, 0);
+}
+
+.badge {
+  bottom: 15px;
+  right: 0px;
+  z-index: 0;
+}

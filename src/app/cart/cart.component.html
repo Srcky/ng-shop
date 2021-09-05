@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-12 mb-5">
+    <div class="cart card justify-content-between">
+      <div class="ribbon text-center">
+        <h2 class="bi bi-cart4 m-0"></h2>
+      </div>
+      <div class="p-3">
+        <ng-container *ngIf="productsInCart.length > 0; else cartEmpty">
+          <ul class="list-unstyled mb-0">
+            <li
+              *ngFor="let product of productsInCart; let i = index"
+              class="py-3 border-bottom position-relative"
+            >
+              <div class="d-flex justify-content-between mb-2">
+                <span class="mr-2">{{ product.name }}</span
+                ><span class="cart-price font-weight-bold">{{
+                  product.price | currency
+                }}</span>
+                <span
+                  class="badge badge-primary badge-pill position-absolute"
+                  >{{ product.qty }}</span
+                >
+              </div>
+              <span
+                class="cart-remove-item text-primary font-weight-bold"
+                (click)="removeProduct(i)"
+                >Remove</span
+              >
+            </li>
+            <li class="d-flex justify-content-between py-3">
+              <strong class="mr-2">Total</strong>
+              <h5 class="font-weight-bold">{{ cartTotal | currency }}</h5>
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #cartEmpty>
+  <h5 class="text-center">Your cart is empty</h5>
+</ng-template>

@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --primary: #1f487e;
+}
+
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+}
+
+.content-container {
+  @extend .container-lg;
+  max-width: 1300px;
+}
+
+.navbar {
+  background-color: var(--primary);
+}
+
+.main-title {
+  margin-block: 4rem;
+}
+
+.card {
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

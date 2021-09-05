@@ -1,0 +1,37 @@
+@use '../../mixins.scss' as mixins;
+
+.product {
+  &-image img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 8px 8px 0px 0;
+  }
+
+  &-text {
+    padding: 10px 15px;
+    background: #fff;
+    font-size: 14px;
+    color: #636262;
+  }
+
+  &-price {
+    color: #000;
+    &--discounted {
+      text-decoration: line-through;
+      color: #dd5600;
+    }
+  }
+
+  &-button {
+    @include mixins.highlighter(0, 0, 8px, 8px);
+    &:hover {
+      text-decoration: none;
+      background-color: #1d3461;
+      color: #fff;
+    }
+  }
+}
+.spinner-border {
+  width: 7rem;
+  height: 7rem;
+}
