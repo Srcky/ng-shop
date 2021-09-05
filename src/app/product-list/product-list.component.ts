@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private shopApiService: ShopApiService
   ) {}
 
-  private subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
 
   products$: Observable<ProductModel[]> = this.productService.getProducts$;
   loading$ = this.productService.loading$;
