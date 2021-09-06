@@ -19,7 +19,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   products$: Observable<ProductModel[]> = this.productService.getProducts$;
   loading$ = this.productService.loading$;
-  searchInProgress$ = this.productService.searchProgress$;
 
   ngOnInit(): void {
     this.loadRecommended();

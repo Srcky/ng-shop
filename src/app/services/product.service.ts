@@ -13,10 +13,6 @@ export class ProductService {
   private addToCartSource: Subject<ProductModel> = new Subject<ProductModel>();
   readonly addToCart$ = this.addToCartSource.asObservable();
 
-  private searchProgressSource: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
-  readonly searchProgress$ = this.searchProgressSource.asObservable();
-
   private loadingSource: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(true);
   readonly loading$ = this.loadingSource.asObservable();
@@ -29,10 +25,6 @@ export class ProductService {
 
   onAddToCart(product: ProductModel): void {
     this.addToCartSource.next(product);
-  }
-
-  searchInProgress(searching: boolean): void {
-    this.searchProgressSource.next(searching);
   }
 
   setLoading(loading: boolean): void {

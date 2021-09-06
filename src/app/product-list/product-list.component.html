@@ -1,11 +1,4 @@
-<ng-container *ngIf="loading$ | async"
-  ><div class="d-flex justify-content-center">
-    <div class="spinner-border text-primary" role="status">
-      <h1 class="sr-only">Loading products...</h1>
-    </div>
-  </div></ng-container
->
-<ng-container *ngIf="!(searchInProgress$ | async)">
+<ng-container *ngIf="!(loading$ | async); else loading">
   <ng-container *ngIf="products$ | async as products">
     <div class="row" *ngIf="products.length > 0">
       <div
@@ -53,3 +46,10 @@
     </div>
   </ng-container>
 </ng-container>
+<ng-template #loading
+  ><div class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <h1 class="sr-only">Loading products...</h1>
+    </div>
+  </div></ng-template
+>
