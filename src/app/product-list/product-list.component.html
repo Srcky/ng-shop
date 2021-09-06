@@ -1,51 +1,52 @@
-<ng-container *ngIf="!(loading$ | async); else loading">
-  <ng-container *ngIf="products$ | async as products">
-    <div class="row" *ngIf="products.length > 0">
-      <div
-        class="col-12 col-sm-6 col-md-4 mb-5 d-flex"
-        *ngFor="let product of products"
-      >
-        <div class="product card justify-content-between">
-          <div class="product-image">
-            <img
-              loading="lazy"
-              [src]="product.defaultImage"
-              alt="{{ product.name }} Image"
-            />
-          </div>
+<ng-container
+  *ngIf="!(loading$ | async) && (products$ | async) as products; else loading"
+>
+  <div class="row" *ngIf="products.length > 0">
+    <div
+      class="col-12 col-sm-6 col-md-4 mb-5 d-flex"
+      *ngFor="let product of products"
+    >
+      <div class="product card justify-content-between">
+        <div class="product-image">
+          <img
+            loading="lazy"
+            [src]="product.defaultImage"
+            alt="{{ product.name }} Image"
+          />
+        </div>
 
-          <h5 class="p-3 font-weight-bold">
-            {{ product.name }}
-          </h5>
-          <div class="product-text">
-            {{ product.description }}
-          </div>
-          <div class="product-text">
-            <div class="row no-gutters">
-              <div *ngIf="product.discount" class="col-6">
-                <h6>Price now:</h6>
-                <label class="product-price font-weight-bold">
-                  {{ product.price - product.discount | currency }}
-                </label>
-              </div>
-              <div class="col-6 text-right ml-auto">
-                <h6>{{ product.discount ? 'Was:' : 'Price:' }}</h6>
-                <label
-                  [ngClass]="{ 'product-price--discounted': product.discount }"
-                >
-                  {{ product.price | currency }}
-                </label>
-              </div>
+        <h5 class="p-3 font-weight-bold">
+          {{ product.name }}
+        </h5>
+        <div class="product-text">
+          {{ product.description }}
+        </div>
+        <div class="product-text">
+          <div class="row no-gutters">
+            <div *ngIf="product.discount" class="col-6">
+              <h6>Price now:</h6>
+              <label class="product-price font-weight-bold">
+                {{ product.price - product.discount | currency }}
+              </label>
+            </div>
+            <div class="col-6 text-right ml-auto">
+              <h6>{{ product.discount ? 'Was:' : 'Price:' }}</h6>
+              <label
+                [ngClass]="{ 'product-price--discounted': product.discount }"
+              >
+                {{ product.price | currency }}
+              </label>
             </div>
           </div>
-          <button class="product-button" (click)="addToCart(product)">
-            Add to cart
-          </button>
         </div>
+        <button class="product-button" (click)="addToCart(product)">
+          Add to cart
+        </button>
       </div>
     </div>
-  </ng-container>
+  </div>
 </ng-container>
+
 <ng-template #loading
   ><div class="d-flex justify-content-center">
     <div class="spinner-border text-primary" role="status">
