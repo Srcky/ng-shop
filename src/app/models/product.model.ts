@@ -7,7 +7,3 @@ export interface ProductModel {
   price: number;
   discount: number;
 }
-
-export interface InCartProductModel extends ProductModel {
-  qty: number;
-}

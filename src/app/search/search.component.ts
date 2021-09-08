@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.searchForm.valueChanges
         .pipe(
-          debounceTime(1000),
+          debounceTime(800),
           distinctUntilChanged((a, b) => a.searchQuery === b.searchQuery),
           filter(data => data.searchQuery.length >= 4),
           tap(_ => this.productService.setLoading(true)),

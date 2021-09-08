@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { InCartProductModel, ProductModel } from '../models/product.model';
+import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   productsInCart$: Observable<ProductModel> = this.productService.addToCart$;
-  productsInCart: InCartProductModel[] = [];
+  productsInCart: { inCart: ProductModel; qty: number }[] = [];
   cartTotal = 0;
 
   ngOnInit(): void {
@@ -23,15 +23,16 @@ export class CartComponent implements OnInit, OnDestroy {
   checkProductAdd(): void {
     this.subscription.add(
       this.productsInCart$.subscribe(product => {
+        const productInCart = { inCart: product, qty: 1 };
         if (
           this.productsInCart.findIndex(
-            (prod: ProductModel) => product.id === prod.id
+            prod => product.id === prod.inCart.id
           ) === -1
         ) {
-          this.productsInCart.push({ ...product, qty: 1 });
+          this.productsInCart.push(productInCart);
         } else {
-          this.productsInCart.find((prod: InCartProductModel) =>
-            prod.id === product.id ? prod.qty++ : null
+          this.productsInCart.find(prod =>
+            product.id === prod.inCart.id ? prod.qty++ : null
           );
         }
         this.calculateTotal(this.productsInCart);
@@ -44,9 +45,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.calculateTotal(this.productsInCart);
   }
 
-  calculateTotal(cartProducts: InCartProductModel[]): void {
+  calculateTotal(cartProducts: { inCart: ProductModel; qty: number }[]): void {
     this.cartTotal = cartProducts.reduce(
-      (sum, prod) => sum + prod.price * prod.qty,
+      (sum, prod) => sum + prod.inCart.price * prod.qty,
       0
     );
   }
