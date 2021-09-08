@@ -30,8 +30,14 @@ export class ShopApiService {
 
   searchProducts(keyword: { searchQuery: string }): Observable<ProductModel[]> {
     const url = `${this.mainUrl}/products`;
-    return this.http.get<ProductModel[]>(url, {
-      params: new HttpParams().set('q', keyword.searchQuery),
-    });
+    return this.http
+      .get<ProductModel[]>(url, {
+        params: new HttpParams().set('q', keyword.searchQuery),
+      })
+      .pipe(
+        catchError(error => {
+          return throwError(JSON.stringify(error));
+        })
+      );
   }
 }

@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   products$: Observable<ProductModel[]> = this.productService.getProducts$;
   loading$ = this.productService.loading$;
+  error = null;
 
   ngOnInit(): void {
     this.loadRecommended();
@@ -26,9 +27,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   loadRecommended(): void {
     this.subscription.add(
-      this.shopApiService
-        .getRecommendedProducts()
-        .subscribe(products => this.productService.loadProducts(products))
+      this.shopApiService.getRecommendedProducts().subscribe(
+        products => {
+          this.productService.loadProducts(products);
+        },
+        error => {
+          this.error = error;
+        }
+      )
     );
   }
 

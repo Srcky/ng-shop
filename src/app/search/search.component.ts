@@ -8,6 +8,7 @@ import {
   switchMap,
   filter,
 } from 'rxjs/operators';
+import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 import { ShopApiService } from '../services/shop-api.service';
 
@@ -37,19 +38,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.searchForm.valueChanges
         .pipe(
-          debounceTime(400),
-          distinctUntilChanged((a, b) => a === b),
+          debounceTime(1000),
+          distinctUntilChanged((a, b) => a.searchQuery === b.searchQuery),
           filter(data => data.searchQuery.length >= 4),
           tap(_ => this.productService.setLoading(true)),
           switchMap(data => this.shopApiService.searchProducts(data)),
           tap(_ => this.productService.setLoading(false))
         )
-        .subscribe(products => {
+        .subscribe((products: ProductModel[]) => {
           if (products.length > 0) {
             this.noProducts = false;
             this.productService.loadProducts(products);
           } else {
             this.noProducts = true;
+            this.productService.loadProducts([]);
           }
         })
     );

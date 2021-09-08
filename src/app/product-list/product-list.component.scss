@@ -26,8 +26,11 @@
     @include mixins.highlighter(0, 0, 8px, 8px);
     &:hover {
       text-decoration: none;
-      background-color: var(--primary);
+      opacity: 0.8;
       color: var(--white);
+    }
+    &:active {
+      opacity: 0.9;
     }
   }
 }

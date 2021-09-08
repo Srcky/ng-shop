@@ -46,6 +46,10 @@
     </div>
   </div>
 </ng-container>
+<div *ngIf="error" class="alert alert-danger">
+  <h2>Error occured!</h2>
+  <p>{{ error }}</p>
+</div>
 
 <ng-template #loading
   ><div class="d-flex justify-content-center">
