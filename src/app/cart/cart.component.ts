@@ -48,7 +48,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   calculateTotal(cartProducts: InCartModel[]): void {
     this.cartTotal = cartProducts.reduce(
-      (sum, prod) => sum + prod.inCart.price - prod.inCart.discount * prod.qty,
+      (sum, prod) =>
+        sum + (prod.inCart.price - prod.inCart.discount) * prod.qty,
       0
     );
   }
