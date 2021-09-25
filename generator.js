@@ -2,37 +2,32 @@ const faker = require('faker');
 
 module.exports = () => {
   const data = {
-    recommendeds: [],
+    recommendations: [],
     products: [],
     users: [],
     carts: [],
   };
 
-  const amountOfProducts = 1000;
+  const amountOfProducts = 100;
   const amountOfRecommendedProduts = 10;
-  const amountOfUsers = 100;
+  const amountOfUsers = 10;
 
   /**
    * GENERATE PRODUCTS AND RECOMMENDED PRODUCTS
    */
   for (let i = 1; i <= amountOfProducts; i++) {
-    let product = {};
-
-    product.id = i;
-    product.name = faker.commerce.productName();
-    product.description = faker.commerce.productDescription();
-    product.defaultImage = faker.image.cats();
-    product.images = [
-      faker.image.cats(),
-      faker.image.cats(),
-      faker.image.cats(),
-      faker.image.cats(),
-    ];
-    product.price = faker.datatype.float();
-    product.discount = faker.datatype.number(70);
+    let product = {
+      description: faker.commerce.productDescription(),
+      defaultImage: faker.image.cats(),
+      discount: faker.datatype.number({ min: 100, max: 1000 }),
+      id: i,
+      images: [faker.image.city()],
+      name: faker.commerce.productName(),
+      price: faker.datatype.float({ min: 1500, max: 5000 }),
+    };
 
     if (i <= amountOfRecommendedProduts) {
-      data.recommendeds.push(product);
+      data.recommendations.push(product);
     }
     data.products.push(product);
   }
@@ -41,26 +36,25 @@ module.exports = () => {
    * GENERATE USERS WITH PURCHASE HISTORY AND CART
    */
   for (let i = 1; i <= amountOfUsers; i++) {
+    // Random user data
     let user = {
       orders: [],
+      id: i,
+      name: {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+      },
+      phone: faker.phone.phoneNumber(),
+      avatar: faker.internet.avatar(),
+      email: faker.internet.email(),
+      address: {
+        country: faker.address.country(),
+        city: faker.address.city(),
+        zip: faker.address.zipCode(),
+        street: faker.address.streetAddress(),
+      },
+      role: i % 2 ? 'ADMIN' : 'CUSTOMER',
     };
-
-    // Random user data
-    user.id = i;
-    user.name = {
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-    };
-    user.phone = faker.phone.phoneNumber();
-    user.avatar = faker.internet.avatar();
-    user.email = faker.internet.email();
-    user.address = {
-      country: faker.address.country(),
-      city: faker.address.city(),
-      zip: faker.address.zipCode(),
-      street: faker.address.streetAddress(),
-    };
-    user.role = i % 2 ? 'ADMIN' : 'CUSTOMER';
 
     // Random products that the user has ordered
     for (let a = 1; a <= faker.datatype.number({ min: 1, max: 5 }); a++) {

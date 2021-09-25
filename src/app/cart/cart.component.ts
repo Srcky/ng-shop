@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { InCartModel } from '../models/cart.model';
 import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 
@@ -13,7 +14,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   productsInCart$: Observable<ProductModel> = this.productService.addToCart$;
-  productsInCart: { inCart: ProductModel; qty: number }[] = [];
+  productsInCart: InCartModel[] = [];
   cartTotal = 0;
 
   ngOnInit(): void {
@@ -45,9 +46,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.calculateTotal(this.productsInCart);
   }
 
-  calculateTotal(cartProducts: { inCart: ProductModel; qty: number }[]): void {
+  calculateTotal(cartProducts: InCartModel[]): void {
     this.cartTotal = cartProducts.reduce(
-      (sum, prod) => sum + prod.inCart.price * prod.qty,
+      (sum, prod) => sum + prod.inCart.price - prod.inCart.discount * prod.qty,
       0
     );
   }

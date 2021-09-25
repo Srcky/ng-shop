@@ -14,7 +14,7 @@
               <div class="d-flex justify-content-between mb-2">
                 <span class="mr-2">{{ product.inCart.name }}</span
                 ><span class="cart-price font-weight-bold">{{
-                  product.inCart.price | currency
+                  product.inCart.price - product.inCart.discount | currency
                 }}</span>
                 <span
                   class="badge badge-primary badge-pill position-absolute"
