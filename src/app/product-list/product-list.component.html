@@ -39,7 +39,15 @@
             </div>
           </div>
         </div>
-        <button class="product-button" (click)="addToCart(product)">
+        <button
+          class="product-button"
+          #p="ngbPopover"
+          popoverClass="popover-notification"
+          placement="top"
+          ngbPopover="{{ product.name }} has been added to the cart"
+          [disabled]="p.isOpen()"
+          (click)="addToCart(product)"
+        >
           Add to cart
         </button>
       </div>

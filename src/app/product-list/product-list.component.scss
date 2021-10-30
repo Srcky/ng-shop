@@ -1,5 +1,17 @@
 @use '../../mixins.scss' as mixins;
 
+:host ::ng-deep .popover-notification {
+  cursor: pointer;
+  background-color: var(--orange);
+  border: 0;
+  .arrow {
+    display: none;
+  }
+  .popover-body {
+    font-weight: 700;
+  }
+}
+
 .product {
   &-image img {
     max-height: 100%;
@@ -32,9 +44,15 @@
     &:active {
       opacity: 0.9;
     }
+    &:disabled {
+      background-color: var(--gray);
+      pointer-events: none;
+      cursor: not-allowed;
+    }
   }
-}
-.spinner-border {
-  width: 7rem;
-  height: 7rem;
+  &.card {
+    border: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+  }
 }

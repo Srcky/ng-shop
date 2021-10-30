@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+$theme-colors: (
+  'primary': #1f487e,
+);
+
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
-
-:root {
-  --primary: #1f487e;
-}
 
 html,
 body {
@@ -19,16 +19,42 @@ body {
   max-width: 1300px;
 }
 
+header {
+  top: 0;
+  z-index: 2;
+}
+
 .navbar {
   background-color: var(--primary);
+  &-shadow {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .main-title {
   margin-block: 4rem;
 }
 
-.card {
-  border: 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.social li {
+  display: inline-block;
+  font-size: 30px;
+  margin-inline-end: 20px;
+  cursor: pointer;
 }
+
+.footer-items {
+  border-bottom: 1px dashed white;
+  &:last-of-type {
+    border-bottom: none;
+  }
+  @include media-breakpoint-up(md) {
+    border-left: 1px dashed white;
+    border-bottom: none;
+    &:last-of-type {
+      border-right: 1px dashed white;
+    }
+  }
+}
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

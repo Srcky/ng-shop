@@ -1,17 +1,75 @@
-<nav class="navbar navbar-dark">
+<header class="position-sticky">
+  <nav class="navbar navbar-dark navbar-shadow">
+    <div class="content-container">
+      <a class="navbar-brand" href="#">OMNI Shop</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="container-fluid">
+    <app-banner></app-banner>
+  </div>
   <div class="content-container">
-    <a class="navbar-brand" href="#">Smart Hardware Shop</a>
+    <div class="row mt-5">
+      <app-search class="col-12 col-lg-8"></app-search>
+    </div>
+    <div class="row mt-5">
+      <app-product-list class="col-lg-8 order-2 order-lg-0"></app-product-list>
+      <app-cart class="col-12 col-lg-3 ml-md-auto"></app-cart>
+    </div>
   </div>
-</nav>
-<div class="container-fluid">
-  <app-banner></app-banner>
-</div>
-<div class="content-container">
-  <div class="row mt-5">
-    <app-search class="col-12 col-lg-8"></app-search>
+</main>
+<footer class="mt-5 bg-primary text-white">
+  <div class="content-container py-5">
+    <nav class="row no-gutters">
+      <div
+        class="
+          col-12 col-md-4
+          py-5
+          px-md-5
+          footer-items
+          text-center text-md-left
+        "
+      >
+        <h5>Link heading</h5>
+        <ul class="menu-items-wrapper list-unstyled mb-0">
+          <li class="mb-2">Lorem ipsum</li>
+          <li class="mb-2">Lorem ipsum</li>
+          <li class="mb-2">Lorem ipsum</li>
+        </ul>
+      </div>
+      <div
+        class="
+          col-12 col-md-4
+          py-5
+          px-md-5
+          footer-items
+          text-center text-md-left
+        "
+      >
+        <h5>Link heading</h5>
+        <ul class="menu-items-wrapper list-unstyled mb-0">
+          <li class="mb-2">Lorem ipsum</li>
+          <li class="mb-2">Lorem ipsum</li>
+          <li class="mb-2">Lorem ipsum</li>
+        </ul>
+      </div>
+      <div
+        class="
+          col-12 col-md-4
+          py-5
+          px-md-5
+          footer-items
+          text-center text-md-left
+        "
+      >
+        <h5>Follow us:</h5>
+        <ul class="menu-items-wrapper list-unstyled mb-0 social">
+          <li class="mb-2"><i class="bi bi-linkedin"></i></li>
+          <li class="mb-2"><i class="bi bi-facebook"></i></li>
+          <li class="mb-2"><i class="bi bi-instagram"></i></li>
+        </ul>
+      </div>
+    </nav>
   </div>
-  <div class="row mt-5">
-    <app-product-list class="col-lg-8 order-2 order-lg-0"></app-product-list>
-    <app-cart class="col-12 col-lg-3 ml-md-auto"></app-cart>
-  </div>
-</div>
+</footer>
