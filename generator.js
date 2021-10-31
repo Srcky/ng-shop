@@ -9,14 +9,14 @@ module.exports = () => {
   };
 
   const amountOfProducts = 100;
-  const amountOfRecommendedProduts = 10;
+  const amountOfRecommendedProducts = 10;
   const amountOfUsers = 10;
 
   /**
    * GENERATE PRODUCTS AND RECOMMENDED PRODUCTS
    */
   for (let i = 1; i <= amountOfProducts; i++) {
-    let product = {
+    const product = {
       description: faker.commerce.productDescription(),
       defaultImage: faker.image.cats(),
       discount: faker.datatype.number({ min: 100, max: 1000 }),
@@ -26,7 +26,7 @@ module.exports = () => {
       price: faker.datatype.float({ min: 1500, max: 5000 }),
     };
 
-    if (i <= amountOfRecommendedProduts) {
+    if (i <= amountOfRecommendedProducts) {
       data.recommendations.push(product);
     }
     data.products.push(product);
@@ -37,7 +37,7 @@ module.exports = () => {
    */
   for (let i = 1; i <= amountOfUsers; i++) {
     // Random user data
-    let user = {
+    const user = {
       orders: [],
       id: i,
       name: {

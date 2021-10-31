@@ -7,6 +7,7 @@ import {
   tap,
   switchMap,
   filter,
+  map,
 } from 'rxjs/operators';
 import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';
@@ -26,6 +27,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   searchForm: FormGroup = new FormGroup({});
   noProducts = false;
+  foundProducts = 0;
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
@@ -43,17 +45,20 @@ export class SearchComponent implements OnInit, OnDestroy {
           filter(data => data.searchQuery.length >= 4),
           tap(_ => this.productService.setLoading(true)),
           switchMap(data => this.shopApiService.searchProducts(data)),
-          tap(_ => this.productService.setLoading(false))
+          tap(_ => this.productService.setLoading(false)),
+          tap((products: ProductModel[]) => {
+            if (products.length > 0) {
+              this.noProducts = false;
+              this.productService.loadProducts(products);
+              this.foundProducts = products.length;
+            } else {
+              this.noProducts = true;
+              this.foundProducts = 0;
+              this.productService.loadProducts([]);
+            }
+          })
         )
-        .subscribe((products: ProductModel[]) => {
-          if (products.length > 0) {
-            this.noProducts = false;
-            this.productService.loadProducts(products);
-          } else {
-            this.noProducts = true;
-            this.productService.loadProducts([]);
-          }
-        })
+        .subscribe()
     );
   }
 

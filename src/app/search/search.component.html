@@ -16,3 +16,7 @@
 <ng-container *ngIf="noProducts">
   <h3>There are no products for your search query</h3>
 </ng-container>
+
+<ng-container *ngIf="foundProducts > 0">
+  <h5>There are {{ foundProducts }} products that match your query</h5>
+</ng-container>

@@ -1,9 +1,6 @@
 @use '../../mixins.scss' as mixins;
 
 .cart {
-  &-price {
-    z-index: 2;
-  }
   &-remove-item {
     cursor: pointer;
   }
