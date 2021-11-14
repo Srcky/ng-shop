@@ -47,6 +47,7 @@ module.exports = () => {
       phone: faker.phone.phoneNumber(),
       avatar: faker.internet.avatar(),
       email: faker.internet.email(),
+      password: faker.internet.password(),
       address: {
         country: faker.address.country(),
         city: faker.address.city(),
@@ -55,7 +56,6 @@ module.exports = () => {
       },
       role: i % 2 ? 'ADMIN' : 'CUSTOMER',
     };
-    user.password = user.name.firstName + user.id;
 
     // Random products that the user has ordered
     for (let a = 1; a <= faker.datatype.number({ min: 1, max: 5 }); a++) {
