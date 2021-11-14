@@ -18,7 +18,7 @@ module.exports = () => {
   for (let i = 1; i <= amountOfProducts; i++) {
     const product = {
       description: faker.commerce.productDescription(),
-      defaultImage: faker.image.cats(),
+      defaultImage: faker.image.image(),
       discount: faker.datatype.number({ min: 100, max: 1000 }),
       id: i,
       images: [faker.image.city()],
@@ -55,6 +55,7 @@ module.exports = () => {
       },
       role: i % 2 ? 'ADMIN' : 'CUSTOMER',
     };
+    user.password = user.name.firstName + user.id;
 
     // Random products that the user has ordered
     for (let a = 1; a <= faker.datatype.number({ min: 1, max: 5 }); a++) {

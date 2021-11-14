@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@use './mixins.scss' as mixins;
 
 $theme-colors: (
   'primary': #1f487e,
 );
-
+/* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
@@ -11,7 +12,14 @@ html,
 body {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
-  height: 100vh;
+  height: 100%;
+}
+
+/*sticky footer fix*/
+app-root {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .content-container {
@@ -35,12 +43,31 @@ header {
   margin-block: 4rem;
 }
 
-.product,
-.cart {
-  &.card {
+main {
+  .ribbon {
+    @include mixins.highlighter(8px, 8px, 0, 0);
+  }
+  .card {
+    width: 100%;
     border: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 8px;
+  }
+  .primary-button {
+    @include mixins.highlighter(0, 0, 8px, 8px);
+    &:hover {
+      text-decoration: none;
+      opacity: 0.8;
+      color: var(--white);
+    }
+    &:active {
+      opacity: 0.9;
+    }
+    &:disabled {
+      background-color: var(--gray);
+      pointer-events: none;
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -62,6 +89,3 @@ header {
     }
   }
 }
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';

@@ -12,6 +12,9 @@ import { BannerComponent } from './banner/banner.component';
 import { SearchComponent } from './search/search.component';
 import { DiscountsComponent } from './discounts/discounts.component';
 import { MainComponent } from './main/main.component';
+import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { MainComponent } from './main/main.component';
     SearchComponent,
     DiscountsComponent,
     MainComponent,
+    AdminComponent,
+    LoginComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

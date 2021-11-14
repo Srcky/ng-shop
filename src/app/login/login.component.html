@@ -1,0 +1,49 @@
+<div class="content-container">
+  <h1 class="main-title text-center">Login</h1>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 mb-5">
+      <div class="card">
+        <div class="ribbon text-center mb-3">
+          <i class="h2 bi bi-lock-fill text-center"></i>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="m-4">
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="email"
+              required
+              [placeholder]="'Email'"
+              formControlName="email"
+            />
+            <p
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                (loginForm.get('email')?.touched ||
+                  loginForm.get('email')?.dirty)
+              "
+              class="alert alert-danger"
+            >
+              Please enter a valid email address
+            </p>
+          </div>
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="password"
+              required
+              [placeholder]="'Password'"
+              formControlName="password"
+            />
+          </div>
+        </form>
+        <button
+          type="submit"
+          [disabled]="!loginForm.valid || sending"
+          class="primary-button"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ProductModel } from '../models/product.model';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { ProductModel } from '../models/product.model';
+import { User } from '../models/user.model';
 import { ProductService } from './product.service';
 
 @Injectable({
@@ -24,6 +25,9 @@ export class ShopApiService {
       }),
       tap(_ => {
         this.productService.setLoading(false);
+      }),
+      catchError(error => {
+        return throwError(JSON.stringify(error));
       })
     );
   }
@@ -39,5 +43,14 @@ export class ShopApiService {
           return throwError(JSON.stringify(error));
         })
       );
+  }
+
+  getUser(userId: User): Observable<User[]> {
+    const url = `${this.mainUrl}/users/${userId}`;
+    return this.http.get<User[]>(url).pipe(
+      catchError(error => {
+        return throwError(JSON.stringify(error));
+      })
+    );
   }
 }
