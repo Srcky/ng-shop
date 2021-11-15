@@ -78,15 +78,15 @@ main {
 }
 
 .footer-items {
-  border-bottom: 1px dashed white;
+  border-bottom: 1px dashed var(--white);
   &:last-of-type {
     border-bottom: none;
   }
   @include media-breakpoint-up(md) {
-    border-left: 1px dashed white;
+    border-left: 1px dashed var(--white);
     border-bottom: none;
     &:last-of-type {
-      border-right: 1px dashed white;
+      border-right: 1px dashed var(--white);
     }
   }
 }
