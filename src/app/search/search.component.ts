@@ -7,7 +7,6 @@ import {
   tap,
   switchMap,
   filter,
-  map,
 } from 'rxjs/operators';
 import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';

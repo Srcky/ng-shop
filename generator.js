@@ -17,9 +17,9 @@ module.exports = () => {
    */
   for (let i = 1; i <= amountOfProducts; i++) {
     const product = {
-      description: faker.commerce?.productDescription(),
-      defaultImage: faker.image?.cats(),
-      discount: faker.datatype?.number({ min: 100, max: 1000 }),
+      description: faker.commerce.productDescription(),
+      defaultImage: faker.image.image(),
+      discount: faker.datatype.number({ min: 100, max: 1000 }),
       id: i,
       images: [faker.image?.city()],
       name: faker.commerce?.productName(),
@@ -47,6 +47,7 @@ module.exports = () => {
       phone: faker.phone.phoneNumber(),
       avatar: faker.internet.avatar(),
       email: faker.internet.email(),
+      password: faker.internet.password(),
       address: {
         country: faker.address.country(),
         city: faker.address.city(),
