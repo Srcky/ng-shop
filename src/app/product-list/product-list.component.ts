@@ -28,10 +28,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loadRecommended(): void {
     this.subscription.add(
       this.shopApiService.getRecommendedProducts().subscribe(
-        products => {
+        (products) => {
           this.productService.loadProducts(products);
         },
-        error => {
+        (error) => {
           this.error = error;
         }
       )
@@ -39,7 +39,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: ProductModel): void {
-    this.productService.onAddToCart(product);
+    this.productService.setCartState(product);
   }
 
   ngOnDestroy(): void {

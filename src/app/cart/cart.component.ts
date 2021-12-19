@@ -13,7 +13,7 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService) {}
 
   private subscription: Subscription = new Subscription();
-  productsInCart$: Observable<ProductModel> = this.productService.addToCart$;
+  productsInCart$: Observable<ProductModel> = this.productService.cartState$;
   productsInCart: InCartModel[] = [];
   cartTotal = 0;
 
@@ -23,16 +23,16 @@ export class CartComponent implements OnInit, OnDestroy {
 
   checkProductAdd(): void {
     this.subscription.add(
-      this.productsInCart$.subscribe(product => {
+      this.productsInCart$.subscribe((product) => {
         const productInCart = { inCart: product, qty: 1 };
         if (
           this.productsInCart.findIndex(
-            prod => product.id === prod.inCart.id
+            (prod) => product.id === prod.inCart.id
           ) === -1
         ) {
           this.productsInCart.push(productInCart);
         } else {
-          this.productsInCart.find(prod =>
+          this.productsInCart.find((prod) =>
             product.id === prod.inCart.id ? prod.qty++ : null
           );
         }
@@ -41,8 +41,15 @@ export class CartComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeProduct(index: number): void {
-    this.productsInCart.splice(index, 1);
+  removeProduct(index: number, product: InCartModel): void {
+    // quantity of 1 in cart means it should be removed from cart completely on removeProduct
+    if (product?.qty === 1) {
+      this.productsInCart.splice(index, 1);
+    } else {
+      this.productsInCart.find((prod) => {
+        return product?.inCart?.id === prod.inCart.id ? prod.qty-- : null;
+      });
+    }
     this.calculateTotal(this.productsInCart);
   }
 
