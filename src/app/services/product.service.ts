@@ -10,8 +10,8 @@ export class ProductService {
     new BehaviorSubject<ProductModel[]>([]);
   readonly getProducts$ = this.getProductsSource.asObservable();
 
-  private addToCartSource: Subject<ProductModel> = new Subject<ProductModel>();
-  readonly addToCart$ = this.addToCartSource.asObservable();
+  private cartStateSource: Subject<ProductModel> = new Subject<ProductModel>();
+  readonly cartState$ = this.cartStateSource.asObservable();
 
   private loadingSource: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(true);
@@ -23,8 +23,8 @@ export class ProductService {
     this.getProductsSource.next(products);
   }
 
-  onAddToCart(product: ProductModel): void {
-    this.addToCartSource.next(product);
+  setCartState(product: ProductModel): void {
+    this.cartStateSource.next(product);
   }
 
   setLoading(loading: boolean): void {
