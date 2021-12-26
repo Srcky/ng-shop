@@ -39,7 +39,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: ProductModel): void {
-    this.productService.setCartState(product);
+    // this.productService.setCartState(product);
+    this.productService.addToCart(product);
   }
 
   ngOnDestroy(): void {
