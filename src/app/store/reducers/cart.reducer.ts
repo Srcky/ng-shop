@@ -1,6 +1,5 @@
 import { CartState } from '../cart-state';
 import * as fromAction from '../actions/cart.action';
-import { ProductModel } from 'src/app/models/product.model';
 import { InCartModel } from 'src/app/models/cart.model';
 
 export const initialState: CartState = {
@@ -26,11 +25,13 @@ export function cartReducer(
         selectedProduct = cartState.find((prod: InCartModel) =>
           payload.id === prod?.inCart.id ? prod.qty++ : null
         );
-        cartState = cartState.filter(
-          (product: InCartModel) =>
-            product.inCart.id !== selectedProduct.inCart.id
-        );
-        cartState.push(selectedProduct);
+        cartState = [
+          ...cartState.filter(
+            (product: InCartModel) =>
+              product.inCart.id !== selectedProduct.inCart.id
+          ),
+          selectedProduct,
+        ];
       }
       return {
         ...state,
@@ -45,3 +46,5 @@ export function cartReducer(
   }
   return state;
 }
+
+// export const getProductsInCart = (state: CartState) => state.productsInCart;

@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { InCartModel } from '../models/cart.model';
 import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';
+import { CartState } from '../store/cart-state';
 
 @Component({
   selector: 'app-cart',
@@ -10,36 +11,40 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnDestroy {
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   private subscription: Subscription = new Subscription();
-  productsInCart$: Observable<ProductModel> = this.productService.cartState$;
+  // productsInCart$: Observable<ProductModel> = this.productService.cartState$;
+  inCartState$: Observable<CartState> = this.productService.inCartState$;
   productsInCart: InCartModel[] = [];
   cartTotal = 0;
 
   ngOnInit(): void {
-    this.checkProductAdd();
+    // this.checkProductAdd();
   }
 
-  checkProductAdd(): void {
-    this.subscription.add(
-      this.productsInCart$.subscribe((product) => {
-        const productInCart = { inCart: product, qty: 1 };
-        if (
-          this.productsInCart.findIndex(
-            (prod) => product.id === prod.inCart.id
-          ) === -1
-        ) {
-          this.productsInCart.push(productInCart);
-        } else {
-          this.productsInCart.find((prod) =>
-            product.id === prod.inCart.id ? prod.qty++ : null
-          );
-        }
-        this.calculateTotal(this.productsInCart);
-      })
-    );
-  }
+  // checkProductAdd(): void {
+  //   this.subscription.add(
+  //     this.productsInCart$.subscribe((product) => {
+  //       const productInCart = { inCart: product, qty: 1 };
+  //       if (
+  //         this.productsInCart.findIndex(
+  //           (prod) => product.id === prod.inCart.id
+  //         ) === -1
+  //       ) {
+  //         this.productsInCart.push(productInCart);
+  //       } else {
+  //         this.productsInCart.find((prod) =>
+  //           product.id === prod.inCart.id ? prod.qty++ : null
+  //         );
+  //       }
+  //       this.calculateTotal(this.productsInCart);
+  //     })
+  //   );
+  // }
 
   removeProduct(index: number, product: InCartModel): void {
     // quantity of 1 in cart means it should be removed from cart completely on removeProduct
