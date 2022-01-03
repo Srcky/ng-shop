@@ -17,9 +17,6 @@ export class ProductService {
     new BehaviorSubject<ProductModel[]>([]);
   readonly getProducts$ = this.getProductsSource.asObservable();
 
-  private cartStateSource: Subject<ProductModel> = new Subject<ProductModel>();
-  readonly cartState$ = this.cartStateSource.asObservable();
-
   private loadingSource: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(true);
   readonly loading$ = this.loadingSource.asObservable();

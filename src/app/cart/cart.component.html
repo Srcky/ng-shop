@@ -6,7 +6,7 @@
       </div>
       <div class="p-3">
         <ul class="list-unstyled mb-0">
-          <ng-container *ngIf="productsInCart; else cartEmpty">
+          <ng-container *ngIf="productsInCart.length > 0; else cartEmpty">
             <li
               *ngFor="let product of productsInCart; let i = index"
               class="py-3 border-bottom position-relative"

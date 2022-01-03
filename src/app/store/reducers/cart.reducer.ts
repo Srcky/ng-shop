@@ -23,6 +23,7 @@ export function cartReducer(
           (prod: InCartModel) =>
             action.payload.id === prod?.inCart.id ? prod.qty++ : null
         );
+        // replace current product with the one with updated qty
         cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
       }
       return {
@@ -31,7 +32,11 @@ export function cartReducer(
       };
     }
     case fromAction.REMOVE_PRODUCT: {
-      cartState.splice(action.payload, 1);
+      if (cartState[action.payload].qty === 1) {
+        cartState.splice(action.payload, 1);
+      } else {
+        cartState[action.payload].qty--;
+      }
       return {
         ...state,
         productsInCart: cartState,
