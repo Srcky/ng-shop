@@ -13,7 +13,6 @@ export function cartReducer(
   switch (action.type) {
     case fromAction.ADD_PRODUCT: {
       let cartState = JSON.parse(JSON.stringify(state.productsInCart));
-      let selectedProduct: InCartModel;
       const payload = action.payload;
       const SelectedProductIndex = cartState.findIndex(
         (prod: InCartModel) => payload.id === prod.inCart.id
@@ -21,8 +20,9 @@ export function cartReducer(
       if (SelectedProductIndex === -1) {
         cartState = [...cartState, { inCart: { ...payload }, qty: 1 }];
       } else {
-        selectedProduct = cartState.find((prod: InCartModel) =>
-          payload.id === prod?.inCart.id ? prod.qty++ : null
+        const selectedProduct: InCartModel = cartState.find(
+          (prod: InCartModel) =>
+            payload.id === prod?.inCart.id ? prod.qty++ : null
         );
         cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
       }
