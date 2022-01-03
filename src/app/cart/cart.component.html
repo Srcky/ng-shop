@@ -10,7 +10,7 @@
             *ngIf="inCartState$ | async as inCartState; else cartEmpty"
           >
             <li
-              *ngFor="let product of inCartState.productsInCart; let i = index"
+              *ngFor="let product of inCartState; let i = index"
               class="py-3 border-bottom position-relative"
             >
               <div class="d-flex justify-content-between mb-2">

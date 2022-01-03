@@ -18,7 +18,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   // productsInCart$: Observable<ProductModel> = this.productService.cartState$;
-  inCartState$: Observable<CartState> = this.productService.inCartState$;
+  inCartState$: Observable<InCartModel[]> = this.productService.inCartState$;
   productsInCart: InCartModel[] = [];
   cartTotal = 0;
 
@@ -51,7 +51,7 @@ export class CartComponent implements OnInit, OnDestroy {
     if (product?.qty === 1) {
       this.productsInCart.splice(index, 1);
     } else {
-      this.productsInCart.find((prod) => {
+      this.productsInCart.find(prod => {
         return product?.inCart?.id === prod.inCart.id ? prod.qty-- : null;
       });
     }

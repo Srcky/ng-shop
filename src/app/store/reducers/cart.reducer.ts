@@ -14,24 +14,17 @@ export function cartReducer(
     case fromAction.ADD_PRODUCT: {
       let cartState = JSON.parse(JSON.stringify(state.productsInCart));
       let selectedProduct: InCartModel;
-      let payload = action.payload;
-      if (
-        cartState.findIndex(
-          (prod: InCartModel) => payload.id === prod.inCart.id
-        ) === -1
-      ) {
+      const payload = action.payload;
+      const SelectedProductIndex = cartState.findIndex(
+        (prod: InCartModel) => payload.id === prod.inCart.id
+      );
+      if (SelectedProductIndex === -1) {
         cartState = [...cartState, { inCart: { ...payload }, qty: 1 }];
       } else {
         selectedProduct = cartState.find((prod: InCartModel) =>
           payload.id === prod?.inCart.id ? prod.qty++ : null
         );
-        cartState = [
-          ...cartState.filter(
-            (product: InCartModel) =>
-              product.inCart.id !== selectedProduct.inCart.id
-          ),
-          selectedProduct,
-        ];
+        cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
       }
       return {
         ...state,
