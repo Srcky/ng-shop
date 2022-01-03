@@ -21,6 +21,10 @@ export class ProductService {
     new BehaviorSubject<boolean>(true);
   readonly loading$ = this.loadingSource.asObservable();
 
+  private getMiniCartPosSource: BehaviorSubject<{ x: number; y: number }> =
+    new BehaviorSubject<{ x: number; y: number }>({ x: 0, y: 0 });
+  readonly getminiCartPos$ = this.getMiniCartPosSource.asObservable();
+
   inCartState$: Observable<InCartModel[]> =
     this.store.select(selectProductsInCart);
 
@@ -38,5 +42,9 @@ export class ProductService {
 
   setLoading(loading: boolean): void {
     this.loadingSource.next(loading);
+  }
+
+  setMiniCartPosition(coordinates: { x: number; y: number }): void {
+    this.getMiniCartPosSource.next(coordinates);
   }
 }

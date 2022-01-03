@@ -4,7 +4,7 @@
   <div class="row" *ngIf="products.length > 0">
     <div
       class="col-12 col-sm-6 col-md-4 mb-5 d-flex"
-      *ngFor="let product of products"
+      *ngFor="let product of products; let i = index"
     >
       <div class="product card justify-content-between">
         <div class="product-image">
@@ -23,7 +23,18 @@
         </div>
         <div class="product-text">
           <div class="row no-gutters">
-            <div *ngIf="product.discount" class="col-6">
+            <div
+              #productDiv
+              *ngIf="product.discount"
+              class="col-6"
+              [@moveToCart]="{
+                value: animationState[i],
+                params: {
+                  coordX: miniCartCoordinates.x,
+                  coordY: miniCartCoordinates.y
+                }
+              }"
+            >
               <h6>Price now:</h6>
               <label class="product-price font-weight-bold">
                 {{ product.price - product.discount | currency }}
@@ -46,7 +57,7 @@
           placement="top"
           ngbPopover="{{ product.name }} has been added to the cart"
           [disabled]="p.isOpen()"
-          (click)="addToCart(product)"
+          (click)="addToCart(product, i)"
         >
           Add to cart
         </button>
