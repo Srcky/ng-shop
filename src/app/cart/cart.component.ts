@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { InCartModel } from '../models/cart.model';
-import { ProductModel } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -13,43 +13,31 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService) {}
 
   private subscription: Subscription = new Subscription();
-  productsInCart$: Observable<ProductModel> = this.productService.cartState$;
+  inCartState$: Observable<InCartModel[]> =
+    this.productService.inCartState$.pipe(
+      tap(cartProducts => {
+        this.calculateTotal(cartProducts);
+      })
+    );
   productsInCart: InCartModel[] = [];
   cartTotal = 0;
 
   ngOnInit(): void {
-    this.checkProductAdd();
-  }
-
-  checkProductAdd(): void {
     this.subscription.add(
-      this.productsInCart$.subscribe((product) => {
-        const productInCart = { inCart: product, qty: 1 };
-        if (
-          this.productsInCart.findIndex(
-            (prod) => product.id === prod.inCart.id
-          ) === -1
-        ) {
-          this.productsInCart.push(productInCart);
-        } else {
-          this.productsInCart.find((prod) =>
-            product.id === prod.inCart.id ? prod.qty++ : null
-          );
-        }
-        this.calculateTotal(this.productsInCart);
-      })
+      // Unpack it here instead of in template, bcs of calculate method
+      this.inCartState$
+        .pipe(
+          tap(cartProducts => {
+            this.productsInCart = cartProducts;
+            this.calculateTotal(cartProducts);
+          })
+        )
+        .subscribe()
     );
   }
 
-  removeProduct(index: number, product: InCartModel): void {
-    // quantity of 1 in cart means it should be removed from cart completely on removeProduct
-    if (product?.qty === 1) {
-      this.productsInCart.splice(index, 1);
-    } else {
-      this.productsInCart.find((prod) => {
-        return product?.inCart?.id === prod.inCart.id ? prod.qty-- : null;
-      });
-    }
+  removeProduct(index: number): void {
+    this.productService.removeFromCart(index);
     this.calculateTotal(this.productsInCart);
   }
 

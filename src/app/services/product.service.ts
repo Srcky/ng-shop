@@ -1,30 +1,39 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { ProductModel } from '../models/product.model';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { AppState } from '../store/cart-state';
+import * as fromAction from '../store/actions/cart.action';
+import { InCartModel } from '../models/cart.model';
+import { selectProductsInCart } from '../store/selectors/cart.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
+  constructor(protected store: Store<AppState>) {}
+
   private getProductsSource: BehaviorSubject<ProductModel[]> =
     new BehaviorSubject<ProductModel[]>([]);
   readonly getProducts$ = this.getProductsSource.asObservable();
-
-  private cartStateSource: Subject<ProductModel> = new Subject<ProductModel>();
-  readonly cartState$ = this.cartStateSource.asObservable();
 
   private loadingSource: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(true);
   readonly loading$ = this.loadingSource.asObservable();
 
-  constructor() {}
+  inCartState$: Observable<InCartModel[]> =
+    this.store.select(selectProductsInCart);
 
   loadProducts(products: ProductModel[]): void {
     this.getProductsSource.next(products);
   }
 
-  setCartState(product: ProductModel): void {
-    this.cartStateSource.next(product);
+  addToCart(product: ProductModel): void {
+    this.store.dispatch(new fromAction.AddProduct(product));
+  }
+
+  removeFromCart(index: number): void {
+    this.store.dispatch(new fromAction.RemoveProduct(index));
   }
 
   setLoading(loading: boolean): void {
