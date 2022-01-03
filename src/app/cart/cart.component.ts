@@ -13,13 +13,18 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private productService: ProductService) {}
 
   private subscription: Subscription = new Subscription();
-  inCartState$: Observable<InCartModel[]> = this.productService.inCartState$;
+  inCartState$: Observable<InCartModel[]> =
+    this.productService.inCartState$.pipe(
+      tap(cartProducts => {
+        this.calculateTotal(cartProducts);
+      })
+    );
   productsInCart: InCartModel[] = [];
   cartTotal = 0;
 
   ngOnInit(): void {
     this.subscription.add(
-      // had to unpack it here instead of in template, bcs of calculate method
+      // Unpack it here instead of in template, bcs of calculate method
       this.inCartState$
         .pipe(
           tap(cartProducts => {
@@ -31,7 +36,7 @@ export class CartComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeProduct(index: number, product: InCartModel): void {
+  removeProduct(index: number): void {
     this.productService.removeFromCart(index);
     this.calculateTotal(this.productsInCart);
   }

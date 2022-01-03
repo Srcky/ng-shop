@@ -28,10 +28,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loadRecommended(): void {
     this.subscription.add(
       this.shopApiService.getRecommendedProducts().subscribe(
-        (products) => {
+        products => {
           this.productService.loadProducts(products);
         },
-        (error) => {
+        error => {
           this.error = error;
         }
       )
