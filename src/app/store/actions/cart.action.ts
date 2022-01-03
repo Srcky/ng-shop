@@ -12,9 +12,7 @@ export class AddProduct implements Action {
 
 export class RemoveProduct implements Action {
   readonly type = REMOVE_PRODUCT;
-  constructor(
-    public payload: { productIndex: number; productsInCart: InCartModel }
-  ) {}
+  constructor(public payload: number) {}
 }
 
 export type CartAction = AddProduct | RemoveProduct;

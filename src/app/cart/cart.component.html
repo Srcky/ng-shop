@@ -6,11 +6,9 @@
       </div>
       <div class="p-3">
         <ul class="list-unstyled mb-0">
-          <ng-container
-            *ngIf="inCartState$ | async as inCartState; else cartEmpty"
-          >
+          <ng-container *ngIf="productsInCart; else cartEmpty">
             <li
-              *ngFor="let product of inCartState; let i = index"
+              *ngFor="let product of productsInCart; let i = index"
               class="py-3 border-bottom position-relative"
             >
               <div class="d-flex justify-content-between mb-2">

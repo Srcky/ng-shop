@@ -10,19 +10,18 @@ export function cartReducer(
   state = initialState,
   action: fromAction.CartAction
 ): CartState {
+  let cartState = JSON.parse(JSON.stringify(state.productsInCart));
   switch (action.type) {
     case fromAction.ADD_PRODUCT: {
-      let cartState = JSON.parse(JSON.stringify(state.productsInCart));
-      const payload = action.payload;
       const SelectedProductIndex = cartState.findIndex(
-        (prod: InCartModel) => payload.id === prod.inCart.id
+        (prod: InCartModel) => action.payload.id === prod.inCart.id
       );
       if (SelectedProductIndex === -1) {
-        cartState = [...cartState, { inCart: { ...payload }, qty: 1 }];
+        cartState = [...cartState, { inCart: { ...action.payload }, qty: 1 }];
       } else {
         const selectedProduct: InCartModel = cartState.find(
           (prod: InCartModel) =>
-            payload.id === prod?.inCart.id ? prod.qty++ : null
+            action.payload.id === prod?.inCart.id ? prod.qty++ : null
         );
         cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
       }
@@ -31,11 +30,13 @@ export function cartReducer(
         productsInCart: cartState,
       };
     }
-    // case fromAction.REMOVE_PRODUCT: {
-    //   return {
-    //     ...state,
-    //   };
-    // }
+    case fromAction.REMOVE_PRODUCT: {
+      cartState.splice(action.payload, 1);
+      return {
+        ...state,
+        productsInCart: cartState,
+      };
+    }
   }
   return state;
 }

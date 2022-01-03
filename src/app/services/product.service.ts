@@ -35,9 +35,9 @@ export class ProductService {
     this.store.dispatch(new fromAction.AddProduct(product));
   }
 
-  // setCartState(product: ProductModel): void {
-  //   this.cartStateSource.next(product);
-  // }
+  removeFromCart(index: number): void {
+    this.store.dispatch(new fromAction.RemoveProduct(index));
+  }
 
   setLoading(loading: boolean): void {
     this.loadingSource.next(loading);
