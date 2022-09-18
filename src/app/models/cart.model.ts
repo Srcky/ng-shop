@@ -8,6 +8,6 @@ import { ProductModel } from './product.model';
 //   }[];
 // }
 export interface InCartModel {
-  inCart: ProductModel;
+  item: ProductModel;
   qty: number;
 }

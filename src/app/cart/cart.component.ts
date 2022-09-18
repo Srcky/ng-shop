@@ -15,7 +15,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   inCartState$: Observable<InCartModel[]> =
     this.productService.inCartState$.pipe(
-      tap(cartProducts => {
+      tap((cartProducts) => {
         this.calculateTotal(cartProducts);
       })
     );
@@ -27,7 +27,7 @@ export class CartComponent implements OnInit, OnDestroy {
       // Unpack it here instead of in template, bcs of calculate method
       this.inCartState$
         .pipe(
-          tap(cartProducts => {
+          tap((cartProducts) => {
             this.productsInCart = cartProducts;
             this.calculateTotal(cartProducts);
           })
@@ -43,8 +43,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   calculateTotal(cartProducts: InCartModel[]): void {
     this.cartTotal = cartProducts.reduce(
-      (sum, prod) =>
-        sum + (prod.inCart.price - prod.inCart.discount) * prod.qty,
+      (sum, prod) => sum + (prod.item.price - prod.item.discount) * prod.qty,
       0
     );
   }

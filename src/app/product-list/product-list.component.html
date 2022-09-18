@@ -30,7 +30,7 @@
               </label>
             </div>
             <div class="col-6 text-right ml-auto">
-              <h6>{{ product.discount ? 'Was:' : 'Price:' }}</h6>
+              <h6>{{ product.discount ? "Was:" : "Price:" }}</h6>
               <label
                 [ngClass]="{ 'product-price--discounted': product.discount }"
               >
@@ -46,7 +46,7 @@
           placement="top"
           ngbPopover="{{ product.name }} has been added to the cart"
           [disabled]="p.isOpen()"
-          (click)="addToCart(product)"
+          (click)="updateCart(product)"
         >
           Add to cart
         </button>

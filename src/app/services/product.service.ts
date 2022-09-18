@@ -36,6 +36,10 @@ export class ProductService {
     this.store.dispatch(new fromAction.RemoveProduct(index));
   }
 
+  updateCart(product: ProductModel): void {
+    this.store.dispatch(new fromAction.UpdateProduct(product));
+  }
+
   setLoading(loading: boolean): void {
     this.loadingSource.next(loading);
   }

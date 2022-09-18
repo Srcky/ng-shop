@@ -12,9 +12,9 @@
               class="py-3 border-bottom position-relative"
             >
               <div class="d-flex justify-content-between mb-2">
-                <span class="mr-2">{{ product.inCart.name }}</span
+                <span class="mr-2">{{ product.item.name }}</span
                 ><span class="cart-price font-weight-bold">{{
-                  product.inCart.price - product.inCart.discount | currency
+                  product.item.price - product.item.discount | currency
                 }}</span>
                 <span
                   class="badge badge-primary badge-pill position-absolute"

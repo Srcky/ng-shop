@@ -1,6 +1,7 @@
 import { CartState } from '../cart-state';
 import * as fromAction from '../actions/cart.action';
 import { InCartModel } from 'src/app/models/cart.model';
+import { ProductModel } from 'src/app/models/product.model';
 
 export const initialState: CartState = {
   productsInCart: [],
@@ -13,19 +14,22 @@ export function cartReducer(
   let cartState = JSON.parse(JSON.stringify(state.productsInCart));
   switch (action.type) {
     case fromAction.ADD_PRODUCT: {
+      console.log(action.payload);
+      cartState = [...cartState, { item: { ...action.payload }, qty: 1 }];
+      return {
+        ...state,
+        productsInCart: cartState,
+      };
+    }
+    case fromAction.UPDATE_PRODUCT: {
       const SelectedProductIndex = cartState.findIndex(
-        (prod: InCartModel) => action.payload.id === prod.inCart.id
+        (prod: InCartModel) =>
+          (<ProductModel>action.payload).id === prod.item.id
       );
-      if (SelectedProductIndex === -1) {
-        cartState = [...cartState, { inCart: { ...action.payload }, qty: 1 }];
-      } else {
-        const selectedProduct: InCartModel = cartState.find(
-          (prod: InCartModel) =>
-            action.payload.id === prod?.inCart.id ? prod.qty++ : null
-        );
-        // replace current product with the one with updated qty
-        cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
-      }
+      const selectedProduct: InCartModel = cartState.find((prod: InCartModel) =>
+        action.payload.id === prod?.item.id ? prod.qty++ : null
+      );
+      cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
       return {
         ...state,
         productsInCart: cartState,

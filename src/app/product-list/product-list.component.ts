@@ -3,6 +3,8 @@ import { ProductService } from '../services/product.service';
 import { ProductModel } from '../models/product.model';
 import { Observable, Subscription } from 'rxjs';
 import { ShopApiService } from '../services/shop-api.service';
+import { take, tap } from 'rxjs/operators';
+import { InCartModel } from '../models/cart.model';
 
 @Component({
   selector: 'app-product-list',
@@ -28,18 +30,34 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loadRecommended(): void {
     this.subscription.add(
       this.shopApiService.getRecommendedProducts().subscribe(
-        products => {
+        (products) => {
           this.productService.loadProducts(products);
         },
-        error => {
+        (error) => {
           this.error = error;
         }
       )
     );
   }
 
-  addToCart(product: ProductModel): void {
-    this.productService.addToCart(product);
+  updateCart(product: ProductModel): void {
+    this.subscription.add(
+      this.productService.inCartState$
+        .pipe(
+          take(1),
+          tap((cartProducts) => {
+            const SelectedProductIndex = cartProducts.findIndex(
+              (prod: InCartModel) => product.id === prod.item.id
+            );
+            if (SelectedProductIndex === -1) {
+              this.productService.addToCart(product);
+            } else {
+              this.productService.updateCart(product);
+            }
+          })
+        )
+        .subscribe()
+    );
   }
 
   ngOnDestroy(): void {
