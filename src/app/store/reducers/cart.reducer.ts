@@ -26,8 +26,8 @@ export function cartReducer(
         (prod: InCartModel) =>
           (<ProductModel>action.payload).id === prod.item.id
       );
-      const selectedProduct: InCartModel = cartState.find((prod: InCartModel) =>
-        action.payload.id === prod?.item.id ? prod.qty++ : null
+      const selectedProduct: InCartModel = cartState.find(
+        (prod: InCartModel) => prod.qty++
       );
       cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
       return {
