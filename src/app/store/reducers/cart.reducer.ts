@@ -20,8 +20,7 @@ export function cartReducer(
         cartState = [...cartState, { inCart: { ...action.payload }, qty: 1 }];
       } else {
         const selectedProduct: InCartModel = cartState.find(
-          (prod: InCartModel) =>
-            action.payload.id === prod?.inCart.id ? prod.qty++ : null
+          (prod: InCartModel) => prod.qty++
         );
         // replace current product with the one with updated qty
         cartState[cartState.indexOf(SelectedProductIndex)] = selectedProduct;
